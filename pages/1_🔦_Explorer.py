@@ -16,6 +16,10 @@ sb.info_panel()
 if "remove_file_confirmed" not in st.session_state:
     st.session_state["remove_file_confirmed"] = False
 
+# Show the current user / role
+data_current = db.run_query_dict(session, 'select current_user() as current_user, current_role() as current_role;')
+st.text('Current user / role: ' + data_current[0]['CURRENT_USER'] + ' / ' + data_current[0]['CURRENT_ROLE'], help="Current user are essential info for checking the user's personal stage. Current role also good to know because all the displayed info based on the specified permissions.")
+
 # Get all the stages under this account
 data_stages = db.run_query_dict(session, 'show stages in account')
 
